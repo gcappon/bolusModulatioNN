@@ -8,10 +8,12 @@ import argparse
 
 #General purpose AI packages
 from sklearn.cross_validation import train_test_split,KFold
+from sklearn.preprocessing import MinMaxScaler
 
 #Keras packages
 from keras.models import Sequential
-from keras.layers import Dense, Activation
+from keras.layers import Dense, Activation, Dropout, ActivityRegularization
+from keras.callbacks import EarlyStopping
 
 ############## PARSING INPUT ###################################################
 class myArgumentParser(argparse.ArgumentParser):
@@ -43,6 +45,7 @@ DATAFILE = args.DATAFILE
 TARGETFILE = args.TARGETFILE
 OUTDIR = args.OUTDIR
 verbose = args.verbose
+
 ############## PARSING INPUT ###################################################
 
 ############## PREPARING DATA ##################################################
@@ -55,8 +58,7 @@ target = np.asarray(target)
 
 train_size = 0.7 #70% a training set e 30% a validation set
 X_tr, X_val, Y_tr, Y_val = train_test_split(train, target, train_size=train_size, random_state=0)
-print(np.shape(X_tr))
-print(np.shape(Y_tr))
+
 ############## PREPARING DATA ##################################################
 
 ############## BUILDING NN  ####################################################
@@ -64,10 +66,10 @@ print(np.shape(Y_tr))
 model = Sequential()
 model.add(Dense(units=20, input_dim=12))
 model.add(Activation('relu'))
+model.add(Dropout(0.1))
 model.add(Dense(units=50))
 model.add(Activation('sigmoid'))
-model.add(Dense(units=50))
-model.add(Activation('sigmoid'))
+model.add(Dropout(0.1))
 model.add(Dense(units=1))
 model.compile(loss='mean_squared_error',optimizer='adam')
 
@@ -75,16 +77,20 @@ model.compile(loss='mean_squared_error',optimizer='adam')
 
 ############## TRAINING NN  ####################################################
 
-n_epochs = 1000
-model.fit(X_tr, Y_tr, epochs = n_epochs, batch_size = 100)
+n_epochs = 2000
+n_batch = 32
+history = model.fit(X_tr, Y_tr, validation_data = (X_val, Y_val),  epochs = n_epochs, batch_size = n_batch)
 
 ############## TRAINING NN  ####################################################
 
 ############## EVALUATING NN  ##################################################
+
 score = model.evaluate(X_val,Y_val,batch_size=100)
 Y_hat = model.predict(X_val)
 print('\n Score: ',score)
 
-plt.plot(Y_val[0:49], marker='^')
-plt.plot(Y_hat[0:49], marker='o')
+plt.plot(history.history['val_loss'])
+plt.show()
+plt.plot(Y_val, marker='^')
+plt.plot(Y_hat, marker='o')
 plt.show()
