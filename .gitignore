@@ -4,6 +4,6 @@
 
 #Temporary scripts
 main+xgb.py
-*.ipynb
+
 *hdf5
 *.pyc

@@ -95,7 +95,7 @@ def train_nn(X_tr,Y_tr,X_val,Y_val,params):
 
 n_nodes_1 = np.array([10, 20, 50])
 #n_nodes_1 = np.array([20])
-activation_1 = np.array(['linear','sigmoid','relu','tanh'])
+activation_1 = np.array(['sigmoid','relu','tanh'])
 #activation_1 = np.array(['relu'])
 regularization_1 = np.array([0,0.1,0.25])
 #regularization_1 = np.array([0])
@@ -104,13 +104,13 @@ dropout_1 = np.array([0,0.1,0.25])
 
 n_nodes_2 = np.array([10, 20, 50])
 #n_nodes_2 = np.array([50])
-activation_2 = np.array(['linear','sigmoid','relu','tanh'])
+activation_2 = np.array(['sigmoid','relu','tanh'])
 #activation_2 = np.array(['sigmoid'])
 regularization_2 = np.array([0,0.1,0.25])
 #regularization_2 = np.array([0.1])
 
 comp_loss = np.array(['mean_squared_error','mean_absolute_error'])
-#comp_loss = np.array(['mean_squared_error'])
+comp_loss = np.array(['mean_squared_error'])
 
 opt_lr = np.array([0.001])
 opt_rho = np.array([0.9])
@@ -118,7 +118,7 @@ opt_epsilon = np.array([1e-08])
 opt_decay = np.array([0.0])
 
 fit_n_batch = np.array([16,32,64])
-#fit_n_batch = np.array([16])
+fit_n_batch = np.array([16])
 
 grid = [{'n_nodes_1': n_nodes_1, 'activation_1': activation_1,
          'regularization_1' : regularization_1, 'dropout_1' : dropout_1,
