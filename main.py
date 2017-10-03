@@ -106,13 +106,3 @@ plt.show()
 plt.plot(history.losses)
 plt.show()
 ############## END EVALUATING RESULTS  #########################################
-
-#TBD: Regularization, RFE, GridSearchCV, best model selection
-
-#Hyperparameters:
-#   * First layer: # nodes, activation function, regularization, dropout %
-#   * Second layer: # nodes, activation function, regularization
-#   * Output layer: regularization
-#   * Compile: loss function
-#   * optimizer: lr, rho, epsilon, decay
-#   * Fit: batch_size, epochs, learning rate
