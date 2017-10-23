@@ -1,3 +1,6 @@
 #Data Files
 
 #Temporary scripts
+
+#Other formats
+*.pyc
