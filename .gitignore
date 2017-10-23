@@ -1,9 +1,3 @@
 #Data Files
-*.mat
-*.csv
 
 #Temporary scripts
-main+xgb.py
-
-*.hdf5
-*.pyc
