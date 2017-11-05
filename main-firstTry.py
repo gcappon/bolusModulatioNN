@@ -50,6 +50,7 @@ pazienti = np.asarray(dataset_trans['subj'])
 del dataset_trans['Y']
 del dataset_trans['min_risk']
 
+dataset_trans.describe()
 train = np.asarray(dataset_trans)
 train_val_size = 0.8 #80% training+validation set and 20% test set
 train_size = 0.7 #70% training set and 30% validation set
@@ -60,10 +61,10 @@ paz_tr_val = X_tr_val[:,0]
 paz_tr = X_tr[:,0]
 paz_val = X_val[:,0]
 paz_te = X_te[:,0]
-X_tr_val = X_tr_val[:,1:14]
-X_tr = X_tr[:,1:14]
-X_val = X_val[:,1:14]
-X_te = X_te[:,1:14]
+X_tr_val = X_tr_val[:,1:10]
+X_tr = X_tr[:,1:10]
+X_val = X_val[:,1:10]
+X_te = X_te[:,1:10]
 scaler = StandardScaler().fit(X_tr_val)
 X_train = scaler.transform(X_tr_val)
 np.save('X_te',X_te)
@@ -81,18 +82,18 @@ def train_nn(X_tr_val,Y_tr_val,X_te,Y_te):
 
     #Model fit
     n_epochs = 5000
-    n_batch = 68
+    n_batch = 63
     performance_cv = []
     models = []
     
     model = Sequential()
-    model.add(Dense(units=436, input_dim=np.shape(X_tr)[1], activity_regularizer=regularizers.l2(0)))
+    model.add(Dense(units=980, input_dim=np.shape(X_tr)[1], activity_regularizer=regularizers.l2(0)))
     model.add(Activation('relu'))
-    model.add(Dropout(0.0881357))
-    model.add(Dense(units=969,activity_regularizer=regularizers.l2(0)))
+    model.add(Dropout(0.049518))
+    model.add(Dense(units=654,activity_regularizer=regularizers.l2(0)))
     model.add(Activation('sigmoid'))
-    model.add(Dropout(0.0315569))
-    model.add(Dense(units=373,activity_regularizer=regularizers.l2(0)))
+    model.add(Dropout(0.135866))
+    model.add(Dense(units=968,activity_regularizer=regularizers.l2(0)))
     model.add(Activation('sigmoid'))
     model.add(Dense(units=1))
 
